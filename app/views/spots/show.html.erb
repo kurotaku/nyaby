@@ -1,0 +1,99 @@
+<% content_for(:title, @spot.name) %>
+<% content_for(:body_class, "spot") %>
+<% content_for(:body_id, "index") %>
+<script type="text/javascript">
+  function initMap() {
+
+    var latlng ={lat: <%= @spot.latitude %>, lng: <%= @spot.longitude %>};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 15,
+        center: latlng,
+        gestureHandling: "cooperative"
+    });
+    var transitLayer = new google.maps.TransitLayer();
+    transitLayer.setMap(map);
+
+    var contentString = '住所：<%= @address %>';
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    var marker = new google.maps.Marker({
+        position:latlng,
+        map: map,
+        title: contentString
+    });
+
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+  }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GEOCODING_API_KEY'] %>&callback=initMap">
+</script>
+
+<section>
+<h1><%= @spot.name %>(<%= @spot.kana %>)</h1>
+
+<% @spot.categories.each do |category| %>
+  <span class="badge badge-pill badge-secondary"><%= category.name %></span>
+<% end %>
+<% if @spot.overview %>
+  <div class="card spot-overview">
+    <%= simple_format(@spot.overview) %>
+  </div>
+<% end %>
+
+
+<div id="map"></div>
+
+<div class="card spot-info">
+  <div class="card-header">
+    基本情報
+  </div>
+  <div class="card-body">
+    <% if @spot.address.present? %>
+      <p class="border-bottom pb-3 mb-0">住所: <%= @spot.address %></p>
+    <% end %>
+    <% if @spot.access.present? %>
+      <p class="border-bottom pb-3 pt-3 mb-0">アクセス方法: <%= @spot.access %></p>
+    <% end %>
+    <% if root_logged_in? %>
+      <p class="border-bottom pb-3 pt-3 mb-0">緯度: <%= @spot.latitude %> 経度: <%= @spot.longitude %></p>
+    <% end %>
+    <% if @spot.phone.present? %>
+      <p class="border-bottom pb-3 pt-3 mb-0">電話番号: <%= link_to @spot.phone, 'tel:' + @spot.phone %></p>
+    <% end %>
+    <% if @spot.since.present? %>
+      <p class="border-bottom pb-3 pt-3 mb-0">設立: <%= @spot.since %></p>
+    <% end %>
+    <% if @spot.deity.present? %>
+      <p class="border-bottom pb-3 pt-3 mb-0">祭神: <%= @spot.deity %></p>
+    <% end %>
+    <% if @spot.sect.present? %>
+      <p class="border-bottom pb-3 pt-3 mb-0">宗派: <%= @spot.sect %></p>
+    <% end %>
+  </div>
+</div>
+</section>
+
+<section>
+<h2>口コミ一覧</h2>
+
+<ul class="review-list">
+  <% @reviews.each do |review| %>
+    <%= render '/reviews/review', review: review, picture: review.pictures.first %>
+  <% end %>
+</ul>
+
+<%= link_to 'このスポットの口コミを投稿', new_review_path(@spot), class: 'btn btn-success btn-lg btn-block' %>
+
+<hr />
+
+<%= link_to 'スポット一覧へ', spots_path, class: 'btn btn-lg btn-secondary' %>
+<% if admin_logged_in? %>
+  <%= link_to '編集', edit_spot_path(@spot), class: 'btn btn-lg btn-warning' %>
+  <%= link_to '削除', @spot, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-lg btn-danger' %>
+<% end %>
+
+</section>

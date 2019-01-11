@@ -1,0 +1,336 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require jquery-ui/datepicker
+ *= require_self
+ */
+ 
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import 'bootstrap';
+@import 'font-awesome';
+
+body {
+  padding-top: 74px;
+}
+
+section{
+  margin-bottom: 2rem;
+  img{
+    max-width: 100%;
+  }
+}
+
+/*
+ * Typography
+ */
+.main-content{
+  h1 {
+    padding-bottom: 9px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 22px;
+    font-weight: bold;
+  }
+  
+  h2 {
+    padding-bottom: 9px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  h3 {
+    margin-bottom: 14px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  p{
+    font-size: 14px;
+  }
+  ul{
+    li{
+      list-style: none;
+    }
+  }
+  hr{
+    margin-bottom: 2rem;
+    border-top: 1px solid #eee;
+  }
+}
+
+/*
+ * Sidebar
+ */
+
+.sidebar {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px 0 20px 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-left: 1px solid #eee;
+}
+
+.sidebar .nav {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+
+/* error */
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors .form-control{
+  border-color: #f00000;
+}
+
+
+/* header */
+.navbar{
+  .navbar-nav{
+    .nav-item{
+      align-items: center;
+      display: flex;
+    }
+    .current-user-icon{
+      .thumb{
+        width: 40px;
+      }
+    }
+    .dropdown-menu{
+      h2{
+        padding: 0.25rem 1.5rem 0.8rem;
+        font-size: 16px;
+        border-bottom: 1px solid #eee;
+      }
+    }
+  }
+}
+
+
+
+/*
+ * Form
+ */
+
+.user-form{
+  .thumb{
+    display: block;
+  }
+}
+
+.search-form{
+  &.search{
+    .sort{
+      display: block;
+    }
+    #category-sort{
+      width: 20%;
+      float: left;
+    }
+    #category-field{
+      width: 80%;
+      float: left;
+    }
+  }
+}
+
+.review-form{
+  .nested-fields{
+    position: relative;
+    .remove_fields{
+      position: absolute;
+      top: 0;
+      right: 0;
+      color: #333;
+    }
+  }
+}
+
+
+/*
+ * List
+ */
+.spot-list{
+  li{
+    border-bottom: 1px solid #eee;
+    a{
+      color: #333;
+      display: block;
+      padding: 10px 20px;
+      &:hover{
+        text-decoration: none;
+        background: #eee;
+      }
+      span{
+        vertical-align: middle;
+      }
+      .spot-name{
+        font-weight: bold;
+        line-height: 1.8;
+      }
+      .spot-address{
+        display: block;
+        font-size: 13px;
+      }
+    }
+  }
+}/* .spot-list */
+
+.review-list{
+  li{
+    .thumb{
+      width: 120px;
+      height: 120px;
+      @include media-breakpoint-up(md){
+        width: 240px;
+        height: 240px;
+      }
+    }
+    .card-body{
+       @include media-breakpoint-down(sm){
+         padding: 0.5rem;
+       }
+       .user-link{
+         margin-bottom: 0.5rem;
+         &:hover{
+           text-decoration: none;
+         }
+       }
+      .thumb{
+        width: 40px;
+        height: 40px;
+        box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
+        margin-right: 10px;
+      }
+      h3{
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+}/* .review-list */
+
+
+
+
+.cat-label{
+  display: block;
+}
+
+.spot-overview{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+#map {
+  height: 400px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align:left;
+  width: 100%;
+}
+
+.spot-info{
+  margin-bottom: 20px;
+}
+
+.tab-content{
+  border: 1px solid #eee;
+  padding: 40px;
+}
+
+.dropdown-menu {
+  left: initial;
+  right: 0;
+  margin: 6px -1px 0 0;
+}
+
+
+/*
+ * Pages
+ */
+
+/* home */
+.home{
+  .pref-box{
+    ul{
+      li{
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* kaminari */
+.pagination .page, .pagination .next, .pagination .last, .pagination .first, .pagination .prev{
+  border: 1px solid #dfdfdf;
+  border-radius: 4px;
+  width: 40px;
+  padding: 5px 0;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.pagination .next, .pagination .last, .pagination .first, .pagination .prev{
+  width: 80px;
+}
+
+.pagination .page a{
+  display: block;
+}
+
+
+div.spinner {
+  position: fixed !important;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100% !important;
+  height: 100vh;
+  div{
+    left: 50%;
+    top: 50% !important;
+  }
+}

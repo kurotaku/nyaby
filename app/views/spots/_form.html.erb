@@ -1,0 +1,88 @@
+<%= form_for(@spot) do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="form-group">
+    <%= f.label :name, '名称' %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :kana, 'よみがな' %>
+    <%= f.text_field :kana, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :address, '住所' %>
+    <%= f.text_field :address, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :pref, '都道府県' %>
+    <%= f.collection_select :pref, JpPrefecture::Prefecture.all, :name_e, :name, {prompt: '未選択'}, {class: 'form-control'} %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :access, 'アクセス方法' %>
+    <%= f.text_field :access, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :phone, '電話番号' %>
+    <%= f.text_field :phone, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :latitude, '緯度' %>
+    <%= f.text_field :latitude, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :longitude, '経度' %>
+    <%= f.text_field :longitude, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :category_ids, 'ご利益', class: 'cat-label' %>
+    <%= f.collection_check_boxes(:category_ids, Category.where(category_type: 'luck'), :id, :name) do |b| %>
+      <div class="form-check form-check-inline">
+        <%= b.label { b.check_box + b.text } %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :category_ids, '特徴', class: 'cat-label' %>
+    <%= f.collection_check_boxes(:category_ids, Category.where(category_type: 'feature'), :id, :name) do |b| %>
+      <div class="form-check form-check-inline">
+        <%= b.label { b.check_box + b.text } %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :category_ids, '巡礼', class: 'cat-label' %>
+    <%= f.collection_check_boxes(:category_ids, Category.where(category_type: 'route'), :id, :name) do |b| %>
+      <div class="form-check form-check-inline">
+        <%= b.label { b.check_box + b.text } %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :since, '設立' %>
+    <%= f.text_field :since, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :sect, '宗派' %>
+    <%= f.text_field :sect, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :deity, '祭神' %>
+    <%= f.text_field :deity, class: 'form-control' %>
+  </div>
+  
+  <%= f.submit '登録する', class: 'btn btn-primary btn-block' %>
+  
+<% end %>

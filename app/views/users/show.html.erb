@@ -1,0 +1,61 @@
+<% content_for(:title, @user.name + 'さんのプロフィール') %>
+<% content_for(:body_class, "user") %>
+<% content_for(:body_id, "show") %>
+
+<section>
+  <h1><%= @user.name %>さんのプロフィール</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">項目</th>
+        <th scope="col">内容</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if root_logged_in? %>
+        <tr>
+          <th scope="row">id</th>
+          <td><%= @user.id %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <th scope="row">名前</th>
+        <td><%= @user.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">email</th>
+        <td><%= @user.email %></td>
+      </tr>
+      <% if root_logged_in? %>
+        <tr>
+          <th scope="row">root</th>
+          <td><%= @user.root %></td>
+        </tr>
+        <tr>
+          <th scope="row">admin</th>
+          <td><%= @user.admin %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <% if admin_logged_in? %>
+    <%= link_to '編集', edit_user_path, class: 'btn btn-lg btn-warning' %>
+    <%= link_to '削除', @message, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-lg btn-danger' %>
+  <% end %>
+</section>
+
+<section>
+  <h2>最近投稿した口コミ</h2>
+  <% if @reviews.any? %>
+    <ul class="review-list">
+      <% @reviews.each do |review| %>
+        <%= render '/reviews/review', review: review %>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>まだ口コミを投稿していません。</p>
+  <% end %>
+</section>

@@ -1,0 +1,43 @@
+<% content_for(:title, 'ユーザー一覧') %>
+<% content_for(:body_class, "user") %>
+<% content_for(:body_id, "index") %>
+
+<section>
+  <h1>ユーザー一覧</h1>
+  
+  <% if @users.any? %>
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <% if root_logged_in? %>
+              <th>ID</th>
+            <% end %>
+            <th>名前</th>
+            <th>email</th>
+            <th>root</th>
+            <th>admin</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <% if root_logged_in? %>
+                <td><%= user.id %></td>
+              <% end %>
+              <td><%= link_to user.name, user_path(user) %></td>
+              <td><%= user.email %></td>
+              <td><%= user.root %></td>
+              <td><%= user.admin %></td>
+              <td>
+                <%= link_to '詳細', user_path(user), class: 'btn btn-secondary' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%#= paginate @users %>
+  <% end %>
+</section>
