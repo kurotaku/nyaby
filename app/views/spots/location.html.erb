@@ -1,0 +1,122 @@
+<% content_for(:title, '現在位置周辺') %>
+<% content_for(:body_class, "spot") %>
+<% content_for(:body_id, "location") %>
+
+<style>
+  #locationMap{
+    width: 100%;
+    height: 500px;
+  }
+</style>
+
+<script>
+
+
+function initMap() {
+  if( navigator.geolocation ){
+    navigator.geolocation.getCurrentPosition( success, error, option );
+    function success(position){
+      var data = position.coords;
+      var lat = data.latitude;
+      var lng = data.longitude;
+      
+
+      var map;
+      var marker = [];
+      var infoWindow = [];
+      var center = {
+        lat: lat,
+        lng: lng
+      };
+      var markerData = <%= @json_data %>
+      
+      document.getElementById('latfield').value = lat;
+      document.getElementById('lngfield').value = lng;
+      
+      map = new google.maps.Map(document.getElementById('locationMap'), {
+        center: center, // 地図の中心を指定
+        zoom: 16 // 地図のズームを指定
+      });
+     
+      for (var i = 0; i < markerData.length; i++) {
+        markerLatLng = new google.maps.LatLng({lat: Number(markerData[i]['latitude']), lng: Number(markerData[i]['longitude'])}); // 緯度経度のデータ作成
+        marker[i] = new google.maps.Marker({ // マーカーの追加
+          position: markerLatLng, // マーカーを立てる位置を指定
+          map: map // マーカーを立てる地図を指定
+        });
+        infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
+          content: '<div class="sample">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
+        });
+        
+        markerEvent(i); // マーカーにクリックイベントを追加
+      }
+      
+      // マーカーにクリックイベントを追加
+      function markerEvent(i) {
+        marker[i].addListener('click', function() { // マーカーをクリックしたとき
+          infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+        });
+      }
+      
+      //現在位置の処理
+      markerCurrentLatLng = new google.maps.LatLng({lat: Number(lat), lng: Number(lng)});
+      makerCurrent = new google.maps.Marker({
+        position: markerCurrentLatLng,
+        map: map
+      });
+      makerCurrent.setOptions({
+        icon: {
+          url: "<%= asset_url 'focus.png' %>"
+        }
+      });
+      
+      
+            
+    }//success
+    function error(error){
+      var errorMessage = {
+        0: "原因不明のエラーが発生しました。",
+        1: "位置情報が許可されませんでした。",
+        2: "位置情報が取得できませんでした。",
+        3: "タイムアウトしました。",
+      } ;
+      alert( errorMessage[error.code]);
+    }//error
+    var option = {
+      "enableHighAccuracy": false,
+      "timeout": 1000 ,
+      "maximumAge": 100 ,
+    };
+  
+  }else{
+    alert("あなたの端末では、現在位置を取得できません。");
+  }
+  
+}
+
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GEOCODING_API_KEY'] %>&callback=initMap"></script>
+
+
+<section>
+  <h1>現在位置周辺</h1>
+  
+  <%= form_tag '#', method:'get', class: 'search-form location mb-5' do %>
+    <%= label :lat, '緯度' %>
+    <%= text_field '', :lat, { class: 'form-control', id: 'latfield', name: 'lat', readonly: true} %>
+    <%= label :lng, '経度' %>
+    <%= text_field '', :lng, { class: 'form-control', id: 'lngfield', name: 'lng', readonly: true} %>
+    <%= label :category_id, 'カテゴリー' %>
+    <%= collection_select('', :category_id, Category.all, :id, :name, {prompt: "全カテゴリー", selected: params[:category_id]}, { class: 'form-control', id: 'category-field' } ) %>
+    <%= label :distance, '距離' %>
+    <%= select '', :distance, ['2', '5', '10', '20', '40', '100', '200', '400'], {selected: params[:distance]}, { class: 'form-control' } %>
+    km以内のスポットで
+    <%= submit_tag('再表示', class: 'btn btn-primary btn-block') %>
+  <% end %>
+  
+  <div id="locationMap"></div>
+  
+  </section>
+
+

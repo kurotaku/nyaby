@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :categories
   
+  get '/location/', to: 'spots#location'
   get '/prefs/', to: 'spots#prefs'
   get '/prefs/:pref', to: 'spots#pref', as: 'pref'
   

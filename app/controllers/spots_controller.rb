@@ -1,5 +1,5 @@
 class SpotsController < ApplicationController
-  before_action :require_admin_logged_in, only: [:new, :create, :edit, :updeate, :destroy]
+  before_action :require_user_logged_in, only: [:new, :create, :edit, :updeate, :destroy]
   before_action :set_spot, only: [:show, :edit, :update, :destroy, :reviews]
   
   def index
@@ -53,6 +53,34 @@ class SpotsController < ApplicationController
     @spots = Spot.where(pref: params[:pref])
     @pref = JpPrefecture::Prefecture.find name: params[:pref]
     @prefname = @pref.name
+  end
+  
+  def location
+    @spots = Spot.all
+    
+    if params[:lat].present?
+      lat = params[:lat]
+      lng = params[:lng]
+      latlag = [lat, lng]
+      @spots = @spots.near(latlag, 2, units: :km)
+    else
+      @spots = Spot.all
+    end
+    
+    if params[:distance].present?
+      lat = params[:lat]
+      lng = params[:lng]
+      latlag = [lat, lng]
+      distance = params[:distance]
+      @spots = @spots.near(latlag, distance, units: :km)
+    end
+    
+    if params[:category_id].present?
+      @spots = @spots.includes(:categories).where(categories: { id: params[:category_id] })
+    end
+    
+    @json_data = @spots.select(:name, :latitude, :longitude).to_json.html_safe
+    
   end
   
   def search

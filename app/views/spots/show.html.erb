@@ -29,8 +29,7 @@
     });
   }
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GEOCODING_API_KEY'] %>&callback=initMap">
-</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GEOCODING_API_KEY'] %>&callback=initMap"></script>
 
 <section>
 <h1><%= @spot.name %>(<%= @spot.kana %>)</h1>
@@ -64,15 +63,6 @@
     <% if @spot.phone.present? %>
       <p class="border-bottom pb-3 pt-3 mb-0">電話番号: <%= link_to @spot.phone, 'tel:' + @spot.phone %></p>
     <% end %>
-    <% if @spot.since.present? %>
-      <p class="border-bottom pb-3 pt-3 mb-0">設立: <%= @spot.since %></p>
-    <% end %>
-    <% if @spot.deity.present? %>
-      <p class="border-bottom pb-3 pt-3 mb-0">祭神: <%= @spot.deity %></p>
-    <% end %>
-    <% if @spot.sect.present? %>
-      <p class="border-bottom pb-3 pt-3 mb-0">宗派: <%= @spot.sect %></p>
-    <% end %>
   </div>
 </div>
 </section>
@@ -91,7 +81,7 @@
 <hr />
 
 <%= link_to 'スポット一覧へ', spots_path, class: 'btn btn-lg btn-secondary' %>
-<% if admin_logged_in? %>
+<% if @spot.user == current_user %>
   <%= link_to '編集', edit_spot_path(@spot), class: 'btn btn-lg btn-warning' %>
   <%= link_to '削除', @spot, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-lg btn-danger' %>
 <% end %>
