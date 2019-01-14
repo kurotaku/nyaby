@@ -23,4 +23,6 @@
 # Ignore uploaded images
 /public/uploads/*
 
+/public/assets/*
+
 /config/deploy/*
