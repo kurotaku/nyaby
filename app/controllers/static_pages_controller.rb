@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
+    @spots = Spot.limit(4).order('created_at DESC')
     @reviews = Review.limit(10).order('created_at DESC')
     @prefs = JpPrefecture::Prefecture.all
     

@@ -41,6 +41,7 @@ Category.create(name: '撮影スポット', slug: 'photo_spot ', category_type: 
 
 Category.create(name: '服屋', slug: 'cloth ', category_type: 'shopping')
 Category.create(name: '雑貨', slug: 'goods ', category_type: 'shopping')
+Category.create(name: '雑貨', slug: 'goods ', category_type: 'shopping')
 
 Category.create(name: 'アミューズメント', slug: 'amusement ', category_type: 'other')
 Category.create(name: '公園', slug: 'park ', category_type: 'other')

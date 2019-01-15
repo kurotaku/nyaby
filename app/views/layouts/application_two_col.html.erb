@@ -17,13 +17,22 @@
       <%= render 'layouts/navbar' %>
     </header>
 
-    <main role="main">
-      <article class="main-content">
-        <%= render 'layouts/flash_messages' %>
-        <%= yield %>
-      </article>
-    </main>
+    <div class="row">
+      <div class="container">
 
+        <main role="main" class="col-md-8 pt-3">
+          <article class="main-content">
+            <%= render 'layouts/flash_messages' %>
+            <%= yield %>
+          </article>
+        </main>
+        
+        <aside class="col-md-4 d-none d-md-block sidebar">
+          <%= render 'layouts/sidebar' %>
+        </aside>
+
+      </div><!-- .container -->
+    </div><!-- .row -->
   </body>
   
 </html>

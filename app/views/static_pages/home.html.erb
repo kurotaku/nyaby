@@ -1,9 +1,38 @@
 <% content_for(:body_class, "home") %>
 <% content_for(:body_id, "index") %>
 <% content_for :meta do %>
-  <meta name=”description” content=”ページ説明文” />
-  <meta name=”keywords” content=”キーワードA,キーワードB,キーワードC” />
+  <meta name="description" content="NyaBy(ニャーバイ)はデートスポットや穴場スポットインスタ映えスポットなどを現在位置から検索できるサービスです。" />
+  <meta name="keywords" content="" />
 <% end %>
+
+<section  class="row" id="kv">
+  <div class="text-center mb-0 container">
+    <h1 class="">つぎ、どこいく？</h1>
+    <h2>ニャーバイ</h2>
+    <%= image_tag('logo.png', class: 'main_logo') %>
+      
+    <%= form_tag location_path, method:'get', class: 'col-4 mr-auto ml-auto', id: 'homeForm' do %>
+      <div class="select_wrap mb-4" id="categoryWrap">
+        <%= collection_select('', :category_id, Category.all, :id, :name, {prompt: "カテゴリーを選択してください"}, { class: 'form-control', id: 'category-field' } ) %>
+      </div>
+      <%= button_tag('現在地周辺のスポットを探す', class: 'button_m btn_border hover mr-auto ml-auto') %>
+    <% end %>
+
+  </div>
+</section>
+
+<section class="bg-gray row area">
+  <div class="container">
+    <h1 class="text-center">新着スポット</h1>
+    <ul id="" class="mr-auto ml-auto col-5">
+      <% @spots.each do |spot| %>
+        <li><a href="<%= spot_path(spot) %>"><%= spot.name %></a></li>
+      <% end %>
+    </ul>
+  </div>
+</section>
+
+
 
 <section class="home">
   
