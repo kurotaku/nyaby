@@ -1,5 +1,126 @@
+<style>
+  #newSpotMap{
+    width: 100%;
+    height: 400px;
+  }
+</style>
+
+<script>
+function initMap() {
+  if( navigator.geolocation ){
+    navigator.geolocation.getCurrentPosition( success, error, option );
+    function success(position){
+      var data = position.coords;
+      var lat = data.latitude;
+      var lng = data.longitude;
+      
+      var map;
+      var marker = [];
+      var infoWindow = [];
+      var center = {
+        lat: lat,
+        lng: lng
+      };
+
+      document.getElementById('spot_latitude').value = lat;
+      document.getElementById('spot_longitude').value = lng;
+      
+      map = new google.maps.Map(document.getElementById('newSpotMap'), {
+        center: center, // 地図の中心を指定
+        zoom: 14, // 地図のズームを指定
+        gestureHandling: "cooperative"
+      });
+      
+      //現在位置の処理
+      markerCurrentLatLng = new google.maps.LatLng({lat: Number(lat), lng: Number(lng)});
+      makerCurrent = new google.maps.Marker({
+        position: markerCurrentLatLng,
+        map: map
+      });
+      makerCurrent.setOptions({
+        icon: {
+          url: "<%= asset_url 'focus.png' %>"
+        }
+      });
+      
+      // マップをクリックした際
+      map.addListener('click', function(e) {
+        getClickLatLng(e.latLng, map);
+      });
+      function getClickLatLng(lat_lng, map) {
+        document.getElementById('spot_latitude').value=lat_lng.lat();
+        document.getElementById('spot_longitude').value=lat_lng.lng();
+        
+        makerCurrent.setMap(null);
+        makerCurrent = new google.maps.Marker({
+          position: lat_lng,
+          map: map
+        });
+        makerCurrent.setOptions({
+          icon: {
+            url: "<%= asset_url 'focus.png' %>"
+          }
+        });
+        map.panTo(lat_lng);
+        
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+          latLng: lat_lng
+        },function(results, status) {
+          if (results[0].geometry) {
+            // 住所を取得(日本の場合だけ「日本, 」を削除)
+            var address = results[0].formatted_address.replace(/^日本, /, '');
+            var postalCode = '';
+            if ( address.match(/\d{3}-\d{4}/g)) {
+              postalCode = String(address.match(/\d{3}-\d{4}/g));
+              console.log(postalCode);
+            }
+            console.log(address);
+          }
+        });
+        
+      }
+
+    }//success
+    function error(error){
+      var errorMessage = {
+        0: "原因不明のエラーが発生しました。",
+        1: "位置情報が許可されませんでした。",
+        2: "位置情報が取得できませんでした。",
+        3: "タイムアウトしました。",
+      } ;
+      alert( errorMessage[error.code]);
+    }//error
+    var option = {
+      "enableHighAccuracy": false,
+      "timeout": 1000 ,
+      "maximumAge": 100 ,
+    };
+  
+  }else{
+    alert("あなたの端末では、現在位置を取得できません。");
+  }
+  
+}
+
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= ENV['GEOCODING_API_KEY'] %>&callback=initMap"></script>
+
+<div id="newSpotMap"></div>
+
 <%= form_for(@spot) do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  
+  <div class="form-group">
+    <%= f.label :latitude, '緯度' %>
+    <%= f.text_field :latitude, class: 'form-control' %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :longitude, '経度' %>
+    <%= f.text_field :longitude, class: 'form-control' %>
+  </div>
 
   <div class="form-group">
     <%= f.label :name, '名称' %>
@@ -30,17 +151,7 @@
     <%= f.label :phone, '電話番号' %>
     <%= f.text_field :phone, class: 'form-control' %>
   </div>
-  
-  <div class="form-group">
-    <%= f.label :latitude, '緯度' %>
-    <%= f.text_field :latitude, class: 'form-control' %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :longitude, '経度' %>
-    <%= f.text_field :longitude, class: 'form-control' %>
-  </div>
-  
+
   <div class="form-group">
     <%= f.label :category_ids, 'カテゴリー', class: 'cat-label' %>
     <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>

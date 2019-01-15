@@ -3,7 +3,6 @@
 <% content_for(:body_id, "location") %>
 <script>
 
-
 function initMap() {
   if( navigator.geolocation ){
     navigator.geolocation.getCurrentPosition( success, error, option );
@@ -38,7 +37,10 @@ function initMap() {
           map: map // マーカーを立てる地図を指定
         });
         infoWindow[i] = new google.maps.InfoWindow({ // 吹き出しの追加
-          content: '<div class="sample">' + markerData[i]['name'] + '</div>' // 吹き出しに表示する内容
+          content: '<div class="sample">' +
+                    markerData[i]['name'] +
+                    '<a href="/spots/' + markerData[i]['id'] + '">詳細</a>' +
+                    '</div>'
         });
         
         markerEvent(i); // マーカーにクリックイベントを追加
@@ -107,6 +109,16 @@ function initMap() {
       <%= select '', :distance, ['2', '5', '10', '20', '40', '100', '200', '400'], {selected: params[:distance]}, { class: 'form-control col-4 d-inline' } %>
       km以内
       <%= submit_tag('検索', class: 'btn btn-primary btn-block') %>
+    <% end %>
+  
+    <% if @spots.any? %>
+      <ul class="spot-list">
+        <% @spots.each do | spot | %>
+        <li><a href="<%= spot_path(spot) %>"><%= spot.name %></a></li>
+        <% end %>
+      </ul>
+    <% else %>
+    <p>該当するスポットはありません</p>
     <% end %>
   
   </div>

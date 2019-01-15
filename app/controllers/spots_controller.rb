@@ -81,6 +81,8 @@ class SpotsController < ApplicationController
     
     @json_data = @spots.select(:name, :latitude, :longitude).to_json.html_safe
     
+    p @json_data
+    
   end
 
   def reviews
