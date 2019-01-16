@@ -17,7 +17,7 @@ function initMap() {
       var map;
       var marker = [];
       var infoWindow = [];
-      var center = {
+      var currentLatLng = {
         lat: lat,
         lng: lng
       };
@@ -26,8 +26,8 @@ function initMap() {
       document.getElementById('spot_longitude').value = lng;
       
       map = new google.maps.Map(document.getElementById('newSpotMap'), {
-        center: center, // 地図の中心を指定
-        zoom: 14, // 地図のズームを指定
+        center: currentLatLng, // 地図の中心を指定
+        zoom: 18, // 地図のズームを指定
         gestureHandling: "cooperative"
       });
       
@@ -43,6 +43,28 @@ function initMap() {
         }
       });
       
+      // マップが表示された際
+      map.addListener('projection_changed', function() {
+       console.log('projection_changed');
+       var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+          latLng: currentLatLng
+        },function(results, status) {
+          console.log(results);
+          if (results[0].geometry) {
+            var name = results[0]['address_components'][0]['long_name']
+            document.getElementById('nameField').value=name;
+            var address = results[1].formatted_address
+            document.getElementById('addressField').value=address;
+            var postalCode = '';
+            if ( address.match(/\d{3}-\d{4}/g)) {
+              postalCode = String(address.match(/\d{3}-\d{4}/g));
+              document.getElementById('zipField').value=postalCode;
+            }
+          }
+        });
+      });
+
       // マップをクリックした際
       map.addListener('click', function(e) {
         getClickLatLng(e.latLng, map);
@@ -50,6 +72,8 @@ function initMap() {
       function getClickLatLng(lat_lng, map) {
         document.getElementById('spot_latitude').value=lat_lng.lat();
         document.getElementById('spot_longitude').value=lat_lng.lng();
+        
+        console.log(lat_lng);
         
         makerCurrent.setMap(null);
         makerCurrent = new google.maps.Marker({
@@ -67,15 +91,17 @@ function initMap() {
         geocoder.geocode({
           latLng: lat_lng
         },function(results, status) {
+          console.log(results);
           if (results[0].geometry) {
-            // 住所を取得(日本の場合だけ「日本, 」を削除)
-            var address = results[0].formatted_address.replace(/^日本, /, '');
+            var name = results[0]['address_components'][0]['long_name']
+            document.getElementById('nameField').value=name;
+            var address = results[1].formatted_address
+            document.getElementById('addressField').value=address;
             var postalCode = '';
             if ( address.match(/\d{3}-\d{4}/g)) {
               postalCode = String(address.match(/\d{3}-\d{4}/g));
-              console.log(postalCode);
+              document.getElementById('zipField').value=postalCode;
             }
-            console.log(address);
           }
         });
         
@@ -121,35 +147,20 @@ function initMap() {
     <%= f.label :longitude, '経度' %>
     <%= f.text_field :longitude, class: 'form-control' %>
   </div>
-
-  <div class="form-group">
-    <%= f.label :name, '名称' %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
   
   <div class="form-group">
-    <%= f.label :kana, 'よみがな' %>
-    <%= f.text_field :kana, class: 'form-control' %>
+    <%= f.label :zipcode, '郵便番号' %>
+    <%= f.text_field :zipcode, class: 'form-control', id: 'zipField' %>
   </div>
   
   <div class="form-group">
     <%= f.label :address, '住所' %>
-    <%= f.text_field :address, class: 'form-control' %>
+    <%= f.text_field :address, class: 'form-control', id: 'addressField' %>
   </div>
-  
+
   <div class="form-group">
-    <%= f.label :pref, '都道府県' %>
-    <%= f.collection_select :pref, JpPrefecture::Prefecture.all, :name_e, :name, {prompt: '未選択'}, {class: 'form-control'} %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :access, 'アクセス方法' %>
-    <%= f.text_field :access, class: 'form-control' %>
-  </div>
-  
-  <div class="form-group">
-    <%= f.label :phone, '電話番号' %>
-    <%= f.text_field :phone, class: 'form-control' %>
+    <%= f.label :name, 'スポット名' %>
+    <%= f.text_field :name, class: 'form-control', id: 'nameField' %>
   </div>
 
   <div class="form-group">
@@ -159,6 +170,11 @@ function initMap() {
         <%= b.label { b.check_box + b.text } %>
       </div>
     <% end %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :overview, 'おすすめポイント' %>
+    <%= f.text_area :overview, class: 'form-control' %>
   </div>
   
   <%= f.submit '登録する', class: 'btn btn-primary btn-block' %>

@@ -43,5 +43,11 @@ Category.create(name: '服屋', slug: 'cloth ', category_type: 'shopping')
 Category.create(name: '雑貨', slug: 'goods ', category_type: 'shopping')
 Category.create(name: '雑貨', slug: 'goods ', category_type: 'shopping')
 
+Category.create(name: 'ホテル', slug: 'park ', category_type: 'stay')
+Category.create(name: '旅館', slug: 'park ', category_type: 'stay')
+
 Category.create(name: 'アミューズメント', slug: 'amusement ', category_type: 'other')
 Category.create(name: '公園', slug: 'park ', category_type: 'other')
+Category.create(name: 'ドライブ', slug: 'park ', category_type: 'other')
+
+

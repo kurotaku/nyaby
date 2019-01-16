@@ -44,6 +44,7 @@ gem 'font-awesome-rails'
 
 gem 'geocoder'
 gem 'jp_prefecture'
+gem 'jp_zip_code'
 
 gem 'carrierwave'
 gem 'carrierwave-ftp', :require => 'carrierwave/storage/ftp/all'

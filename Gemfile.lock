@@ -128,6 +128,8 @@ GEM
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jp_prefecture (0.9.0)
+    jp_zip_code (0.2.1)
+      rubyzip
     jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -215,6 +217,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     ruby_dep (1.5.0)
+    rubyzip (1.2.2)
     sass (3.7.2)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -289,6 +292,7 @@ DEPENDENCIES
   geokit-rails
   jbuilder (~> 2.5)
   jp_prefecture
+  jp_zip_code
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
@@ -310,4 +314,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.2
+   2.0.1

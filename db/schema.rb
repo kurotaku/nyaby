@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180930133221) do
 
-  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "category_type"
     t.string "name"
     t.string "slug"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 20180930133221) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "category_spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "category_spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.bigint "spot_id"
     t.bigint "category_id"
     t.datetime "created_at", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180930133221) do
     t.index ["spot_id"], name: "index_category_spots_on_spot_id"
   end
 
-  create_table "pictures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "pictures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "image"
     t.string "comment"
     t.string "label"
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 20180930133221) do
     t.index ["review_id"], name: "index_pictures_on_review_id"
   end
 
-  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "reviews", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.bigint "spot_id"
     t.bigint "user_id"
     t.string "comment"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20180930133221) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
-  create_table "spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "spots", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
     t.string "address"
     t.decimal "latitude", precision: 11, scale: 8
@@ -58,7 +58,11 @@ ActiveRecord::Schema.define(version: 20180930133221) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "zipcode"
     t.string "pref"
+    t.string "city"
+    t.string "town"
+    t.string "image"
     t.string "kana"
     t.string "access"
     t.string "phone"
@@ -66,7 +70,7 @@ ActiveRecord::Schema.define(version: 20180930133221) do
     t.index ["user_id"], name: "index_spots_on_user_id"
   end
 
-  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
     t.string "name"
     t.string "email"
     t.boolean "root"
