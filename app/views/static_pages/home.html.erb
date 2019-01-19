@@ -11,7 +11,7 @@
     <h2>ニャーバイ</h2>
     <%= image_tag('logo.png', class: 'main_logo') %>
       
-    <%= form_tag location_path, method:'get', class: 'col-4 mr-auto ml-auto', id: 'homeForm' do %>
+    <%= form_tag location_path, method:'get', class: 'col-md-7 col-lg-5 mr-auto ml-auto', id: 'homeForm' do %>
       <div class="select_wrap mb-4" id="categoryWrap">
         <%= collection_select('', :category_id, Category.all, :id, :name, {prompt: "カテゴリーを選択してください", include_blank: '全カテゴリー'}, { class: 'form-control', id: 'category-field' } ) %>
       </div>

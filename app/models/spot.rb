@@ -9,7 +9,7 @@ class Spot < ApplicationRecord
   has_many :categories, through: :category_spots
   has_many :pictures, through: :reviews
   
-  geocoded_by :address
-  after_validation :geocode
+  # geocoded_by :address
+  # after_validation :geocode
   
 end

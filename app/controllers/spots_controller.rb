@@ -18,6 +18,12 @@ class SpotsController < ApplicationController
   def create
     @spot = current_user.spots.build(spot_params)
     
+    zipcode = spot_params[:zipcode]
+    address = JpZipCode.search zipcode
+    @spot.pref = address['pref_kanji']
+    @spot.city = address['city_kanji']
+    @spot.town = address['town_kanji']
+    
     if @spot.save
       flash[:success] = '登録しました'
       redirect_to @spot
