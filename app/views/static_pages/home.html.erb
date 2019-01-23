@@ -24,43 +24,52 @@
 <section class="bg-gray row area">
   <div class="container">
     <h1 class="text-center">新着スポット</h1>
-    <ul id="" class="mr-auto ml-auto col-5">
+    <ul id="top-spot-list" class="top-archive-list mr-auto ml-auto col-7 p-5 bg-white">
       <% @spots.each do |spot| %>
-        <li><a href="<%= spot_path(spot) %>"><%= spot.name %></a></li>
+        <li>
+          <a href="<%= spot_path(spot) %>">
+            <span class="mr-4"><%= spot_thumb(spot, '') %></span>
+            <span>
+              <span class="small d-block font-weight-bold"><%= spot.pref %>・<%= spot.city %></span>
+              <span class="name d-block font-weight-bold"><%= spot.name %></span>
+              <% spot.categories.each do |category| %>
+                <span class="cat-name"><%= category.name %></span>
+              <% end %>
+              <span class="detail font-weight-bold">詳しく見る<i class="fa fa-angle-right"></i></span>
+            </span>
+          </a>
+          </li>
       <% end %>
     </ul>
+    <%= link_to '新着のスポットをもっと見る', spots_path, class: 'button_m mr-auto ml-auto' %>
   </div>
 </section>
 
+<section class="bg-light-ågray row area">
+</section>
 
-
-<section class="home">
-  
-  <h1>新着の口コミ</h1>
-  
-  <% if @reviews.any? %>
-    <ul class="review-list">
-      <% @reviews.each do |review| %>
-        <%= render '/reviews/review', review: review %>
+<section class="bg-gray row area">
+  <div class="container">
+    <h1 class="text-center">新着記事</h1>
+    
+    <ul id="top-spot-list" class="top-archive-list mr-auto ml-auto col-7 p-5 bg-white">
+      
+      <% @parsed_articles.each do |article| %>
+        <li>
+          <a href="<%= article['link'] %>">
+            <% if article['_embedded']['wp:featuredmedia'].present? %>
+              <span class="mr-4"><img src="<%= article['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url'] %>" /></span>
+            <% end %>
+            <span>
+              <span class="small d-block font-weight-bold"><%= article['date'].to_date.strftime('%Y.%m.%d') %></span>
+              <span class="name d-block font-weight-bold"><%= article['title']['rendered'] %></span>
+              <span class="detail font-weight-bold">詳しく見る<i class="fa fa-angle-right"></i></span>
+            </span>
+          </a>
+        </li>
       <% end %>
+
     </ul>
-  <% else %>
-    <p>口コミはまだありません。</p>
-  <% end %>
-  
-  <h1>コラム</h1>
-  
-  <ul class="article-list">
-    <% @parsed_articles.each do |article| %>
-      <li>
-        <a href="<%= article['link'] %>"><%= article['title']['rendered'] %></a>
-        <% if article['_embedded']['wp:featuredmedia'].present? %>
-          <a href="<%= article['link'] %>"><img src="<%= article['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url'] %>" /></a>
-        <% end %>
-        <%= article['content']['rendered'].html_safe %>
-      </li>
-    <% end %>
-  </ul>
-  
-  
+    <%= link_to '新着の記事をもっと見る', spots_path, class: 'button_m hover mr-auto ml-auto' %>
+  </div>
 </section>

@@ -39,6 +39,14 @@ $white: #fff;
   background: $light-gray;
 }
 
+.bg-theme-color{
+  background: $theme-color;
+}
+
+.bg-light-theme-color{
+  background: $light-theme-color;
+}
+
 /*
  * Bootstrap Override
  */
@@ -50,6 +58,10 @@ button:focus {
 
 button{
   cursor: pointer;
+}
+
+ol, ul, dl {
+  margin-bottom: 0;
 }
 
 
@@ -105,7 +117,7 @@ a{
 
 .button_m{
   outline: 0;
-  background: $theme-color;
+  background: $sub-color;
   width: 300px;
   color: $white;
   display: block;
@@ -141,6 +153,7 @@ a{
 }
 
 .btn_border{
+  background: $theme-color;
   border: 3px solid $black;
   box-sizing: border-box;
   color: $black;
@@ -177,17 +190,15 @@ body, input, button, select, optgroup, textarea {
 }
 
 section{
-  img{
-    max-width: 100%;
-  }
   &.area{
-    padding: 80px 0;
+    padding: 40px 0;
     h1{
       font-size: 36px;
       font-weight: bold;
     }
   }
 }
+
 
 
 /*
@@ -273,6 +284,49 @@ section{
 
 .sidebar .nav-link {
   border-radius: 0;
+}
+
+
+/*
+ * Footer
+ */
+ 
+#page-top{
+  font-size: 36px;
+  position: fixed;
+  display: block;
+  bottom: 40px;
+  right: 40px;
+  width: 62px;
+  height: 62px;
+  padding-top: 9px;
+  text-align: center;
+  background: $light-theme-color;
+  border: 3px solid #222215;
+  box-shadow: 0 1px 2px 0 rgba(0,0,0,0.14);
+  color: #222215;
+  border-radius: 18px;
+  box-sizing: border-box;
+  z-index: 10;
+  line-height: 1;
+  @include media-breakpoint-down(sm){
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+#copy-right{
+  font-size: 12px;
+}
+
+#footer-menu{
+  margin-top: 80px;
+  li{
+    font-size: 12px;
+    a{
+      color: #534a40;
+    }
+  }
 }
 
 
@@ -383,6 +437,73 @@ section{
     padding-left: 24px;
   }
 }
+
+.home{
+  section{
+    &.area{
+      padding: 80px 0;
+      h1{
+        margin-bottom: 32px;
+        font-weight: normal;
+      }
+    }
+  }
+  .top-archive-list{
+    border-radius: 20px;
+    margin-bottom: 40px;
+    li{
+      list-style: none;
+      position: relative;
+      margin-bottom: 24px;
+      a{
+        display: flex;
+        img{
+          width: 140px;
+          border-radius: 10px;
+        }
+        .small{
+          font-size: 12px;
+          color: #222215;
+        }
+        .name{
+          font-size: 20px;
+          color: #222215;
+        }
+        .cat-name{
+          background: $sub-color;
+          color: $white;
+          font-size: 12px;
+          padding: 2px 8px;
+          border-radius: 100px;
+          margin: 0 4px 8px 0;
+          display: inline-block;
+        }
+        .detail{
+          position: absolute;
+          font-size: 12px;
+          bottom: 0;
+          right: 0;
+          .fa{
+            font-size: 20px;
+            position: relative;
+            top: 2px;
+            margin-left: 8px;
+          }
+        }
+        &:hover{
+          text-decoration: none;
+          color: $sub-color;
+        }
+      }
+      &:last-child{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+
 
 /* Location */
 

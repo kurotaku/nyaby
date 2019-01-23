@@ -149,6 +149,12 @@ function initMap() {
     <%= f.label :name, 'スポット名' %>
     <%= f.text_field :name, class: 'form-control', id: 'nameField' %>
   </div>
+  
+  <div class="form-group">
+    <%= f.label :image, '画像' %>
+    <%= spot_thumb(@spot, 'd-block mb-3') %>
+    <%= f.file_field :image %>
+  </div>
 
   <div class="form-group">
     <%= f.label :latitude, '緯度' %>
@@ -186,7 +192,7 @@ function initMap() {
   </div>
 
   <div class="form-group">
-    <%= f.label :category_ids, 'カテゴリー', class: 'cat-label' %>
+    <%= f.label :category_ids, 'カテゴリー', class: 'cat-label d-block' %>
     <%= f.collection_check_boxes(:category_ids, Category.all, :id, :name) do |b| %>
       <div class="form-check form-check-inline">
         <%= b.label { b.check_box + b.text } %>
@@ -196,7 +202,7 @@ function initMap() {
   
   <div class="form-group">
     <%= f.label :overview, 'おすすめポイント' %>
-    <%= f.text_area :overview, class: 'form-control' %>
+    <%= f.text_area :overview, size: '20x10', maxlength: '2000', class: 'form-control' %>
   </div>
   
   <%= f.submit '登録する', class: 'btn btn-primary btn-block' %>

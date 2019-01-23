@@ -56,4 +56,12 @@ module ApplicationHelper
     end
   end
   
+  def spot_thumb(spot, cls)
+    if spot.image.present?
+      image_tag spot.image.thumb.url, class: 'thumb ' + cls
+    else
+      image_tag 'review_no_image_300.png', class: 'thumb ' + cls
+    end
+  end
+  
 end

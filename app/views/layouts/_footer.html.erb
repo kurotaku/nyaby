@@ -1,0 +1,18 @@
+<%= link_to(content_tag(:i, '', class: 'fa fa-angle-up'), '#', id: 'page-top') %>
+
+<div id="footer-menu" class="d-none d-md-block bg-light-theme-color">
+  <nav class="container navbar p-1 p-md-2" id="footerNab">
+    <ul class="nav navbar-nav navbar-right flex-row d-none d-md-flex">
+    	<li class="nav-item mr-4">
+        <%= link_to 'プライバシーポリシー', ENV['WP_PATH'] + '/privacy-policy/', class: 'nav-link', target: '_blank' %>
+      </li>
+      <li class="nav-item mr-4">
+        <%= link_to 'お問い合わせ', ENV['WP_PATH'] + '/contact/', class: 'nav-link', target: '_blank' %>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div id="copy-right" class="text-center bg-theme-color p-3">
+  Copyright ©NyaBy All Rights Reserved.
+</div>
