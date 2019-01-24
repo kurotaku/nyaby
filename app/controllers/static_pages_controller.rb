@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
     @spots = Spot.limit(4).order('created_at DESC')
     @reviews = Review.limit(10).order('created_at DESC')
     # @prefs = JpPrefecture::Prefecture.all
+    @wp_path = ENV['WP_PATH']
     
     conn = Faraday.new(url: ENV['WP_PATH']) do |faraday|
       faraday.request  :url_encoded

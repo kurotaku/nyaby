@@ -1,4 +1,6 @@
-<%= link_to(content_tag(:i, '', class: 'fa fa-angle-up'), '#', id: 'page-top') %>
+<% unless controller.controller_name == 'spots' && controller.action_name == 'location' %>
+  <%= link_to(content_tag(:i, '', class: 'fa fa-angle-up'), '#', id: 'page-top') %>
+<% end %>
 
 <div id="footer-menu" class="d-none d-md-block bg-light-theme-color">
   <nav class="container navbar p-1 p-md-2" id="footerNab">

@@ -2,7 +2,7 @@
 <% content_for(:body_class, "review") %>
 <% content_for(:body_id, "show") %>
 
-<section>
+<section class="area container">
   <h1><%= link_to "#{@review.spot.name}（#{@review.spot.kana}）", spot_path(@review.spot) %></h1>
   
   <div class="review-info mb-4 pb-4 border-bottom">

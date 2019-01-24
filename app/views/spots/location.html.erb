@@ -100,7 +100,7 @@ function initMap() {
     <div id="locationMap"></div>
   </div>
   
-  <div class="col-4 pt-3">
+  <div id="location-spots-info-area" class="col-4 pt-3">
     <%= form_tag '#', method:'get', class: 'search-form location mb-5' do %>
       <%= text_field '', :lat, { class: 'form-control', id: 'latfield', name: 'lat', readonly: true} %>
       <%= text_field '', :lng, { class: 'form-control', id: 'lngfield', name: 'lng', readonly: true} %>
@@ -112,13 +112,24 @@ function initMap() {
     <% end %>
   
     <% if @spots.any? %>
-      <ul class="spot-list">
+      <ul class="location-spot-list">
         <% @spots.each do | spot | %>
-        <li><a href="<%= spot_path(spot) %>"><%= spot.name %></a></li>
+        <li>
+          <a href="<%= spot_path(spot) %>" class="d-flex">
+            <span class="mr-3"><%= spot_thumb(spot, '') %></span>
+            <span>
+              <span class="small d-block font-weight-bold"><%= spot.pref %>・<%= spot.city %></span>
+              <span class="name d-block font-weight-bold"><%= spot.name %></span>
+              <% spot.categories.each do |category| %>
+                <span class="cat-name"><%= category.name %></span>
+              <% end %>
+            </span>
+          </a>
+        </li>
         <% end %>
       </ul>
     <% else %>
-    <p>該当するスポットはありません</p>
+      <p>該当するスポットはありません</p>
     <% end %>
   
   </div>

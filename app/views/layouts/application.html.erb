@@ -19,14 +19,18 @@
 
     <main role="main">
       <article class="main-content">
-        <%= render 'layouts/flash_messages' %>
+        <div class="container">
+          <%= render 'layouts/flash_messages' %>
+        </div>
         <%= yield %>
       </article>
     </main>
     
-    <footer>
-      <%= render 'layouts/footer' %>      
-    </footer>
+    <% unless controller.controller_name == 'spots' && controller.action_name == 'location' %>
+      <footer>
+        <%= render 'layouts/footer' %>      
+      </footer>
+    <% end %>
 
   </body>
   

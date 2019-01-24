@@ -218,7 +218,8 @@ section{
 
 #headerNav{
   background: $theme-color;
-  height: 80px;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 #navbars{
@@ -506,11 +507,47 @@ section{
 
 
 /* Location */
-
 #locationMap{
   width: 100%;
   height: calc(100vh - 80px);
 }
+
+#location-spots-info-area{
+  overflow: auto;
+  height: calc(100vh - 80px);
+  .location-spot-list{
+    li{
+      list-style: none;
+      padding-bottom: 16px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid #dfdfdf;
+      img{
+        width: 100px;
+        border-radius: 10px;
+      }
+      a{
+        &:hover{
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+
+/* spots show */
+#map {
+  height: 400px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align:left;
+  width: 100%;
+}
+
+
+
+
+
 
 
 
