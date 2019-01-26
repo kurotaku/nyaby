@@ -31,6 +31,16 @@ Category.create(name: 'カフェ', slug: 'cafe', category_type: 'gourmet')
 Category.create(name: '居酒屋・バー', slug: 'bar', category_type: 'gourmet')
 Category.create(name: 'スイーツ', slug: 'sweets', category_type: 'gourmet')
 
+Category.create(name: '和食', slug: 'japanese-food', category_type: 'restaurant')
+Category.create(name: '中華', slug: 'chinese-food', category_type: 'restaurant')
+Category.create(name: 'イタリアン', slug: 'italian', category_type: 'restaurant')
+Category.create(name: 'フレンチ', slug: 'french', category_type: 'restaurant')
+Category.create(name: '焼肉', slug: 'korean-bbq', category_type: 'restaurant')
+Category.create(name: 'エスニック', slug: 'ethnic', category_type: 'restaurant')
+Category.create(name: '麺類', slug: 'noodle', category_type: 'restaurant')
+Category.create(name: 'ファストフード', slug: 'fastfood', category_type: 'restaurant')
+
+
 Category.create(name: '美術館', slug: 'art_museum ', category_type: 'art')
 Category.create(name: '博物館', slug: 'museum ', category_type: 'art')
 Category.create(name: '科学館', slug: 'science_museum ', category_type: 'art')
@@ -41,7 +51,6 @@ Category.create(name: '撮影スポット', slug: 'photo_spot ', category_type: 
 
 Category.create(name: '服屋', slug: 'cloth ', category_type: 'shopping')
 Category.create(name: '雑貨', slug: 'goods ', category_type: 'shopping')
-Category.create(name: '雑貨', slug: 'goods ', category_type: 'shopping')
 
 Category.create(name: 'ホテル', slug: 'park ', category_type: 'stay')
 Category.create(name: '旅館', slug: 'park ', category_type: 'stay')
@@ -49,5 +58,9 @@ Category.create(name: '旅館', slug: 'park ', category_type: 'stay')
 Category.create(name: 'アミューズメント', slug: 'amusement ', category_type: 'other')
 Category.create(name: '公園', slug: 'park ', category_type: 'other')
 Category.create(name: 'ドライブ', slug: 'park ', category_type: 'other')
+
+Category.create(name: 'スポーツ', slug: 'sport ', category_type: 'sport')
+
+Category.create(name: 'その他', slug: 'other ', category_type: 'other')
 
 

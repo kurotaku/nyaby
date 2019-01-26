@@ -42,7 +42,12 @@ function initMap() {
                     '<a href="/spots/' + markerData[i]['id'] + '">詳細</a>' +
                     '</div>'
         });
-        
+        marker[i].setOptions({
+          icon: {
+            url: `/assets/badge_icon/point_${i + 1}.png`,
+            scaledSize: new google.maps.Size(38, 47)
+          }
+        });
         markerEvent(i); // マーカーにクリックイベントを追加
       }
       
