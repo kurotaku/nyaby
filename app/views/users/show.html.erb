@@ -2,7 +2,7 @@
 <% content_for(:body_class, "user") %>
 <% content_for(:body_id, "show") %>
 
-<section class="area container">
+<section>
   <h1><%= @user.name %>さんのプロフィール</h1>
   <table class="table table-bordered">
     <thead>
@@ -40,12 +40,12 @@
   </table>
 </section>
 
-<section>
-  <% if admin_logged_in? %>
+<% if admin_logged_in? %>
+  <section>
     <%= link_to '編集', edit_user_path, class: 'btn btn-lg btn-warning' %>
     <%= link_to '削除', @message, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-lg btn-danger' %>
-  <% end %>
-</section>
+  </section>
+<% end %>
 
 <section>
   <h2>最近投稿した口コミ</h2>

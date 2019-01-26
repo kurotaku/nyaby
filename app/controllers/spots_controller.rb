@@ -1,4 +1,5 @@
 class SpotsController < ApplicationController
+  layout 'application_full_width', only: [:location]
   before_action :require_user_logged_in, only: [:new, :create, :edit, :updeate, :destroy]
   before_action :set_spot, only: [:show, :edit, :update, :destroy, :reviews]
   
