@@ -118,9 +118,10 @@ function initMap() {
   
     <% if @spots.any? %>
       <ul class="location-spot-list">
-        <% @spots.each do | spot | %>
+        <% @spots.each_with_index do | spot, i | %>
         <li>
           <a href="<%= spot_path(spot) %>" class="d-flex">
+            <img src="/assets/badge_icon/badge_<%= i + 1 %>.png" class="icon" />
             <span class="mr-3"><%= spot_thumb(spot, '') %></span>
             <span>
               <span class="small d-block font-weight-bold"><%= spot.pref %>・<%= spot.city %></span>

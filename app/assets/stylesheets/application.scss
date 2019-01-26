@@ -519,11 +519,19 @@ section{
       padding-bottom: 16px;
       margin-bottom: 16px;
       border-bottom: 1px solid #dfdfdf;
-      img{
-        width: 100px;
-        border-radius: 10px;
-      }
       a{
+        position: relative;
+        .thumb{
+          width: 100px;
+          border-radius: 10px;
+        }
+        .icon{
+          position: absolute;
+          width: 40px;
+          height: auto;
+          top: -6px;
+          left: -6px;
+        }
         &:hover{
           text-decoration: none;
         }
