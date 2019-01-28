@@ -146,6 +146,37 @@ a{
   }
 }
 
+.button_s{
+  outline: 0;
+  background: $sub-color;
+  width: 120px;
+  color: $white;
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 7px 0;
+  position: relative;
+  text-align: center;
+  @include media-breakpoint-down(sm){
+    width: 80%;
+    font-size: 12px;
+  }
+  &:hover{
+    color: $white;
+    text-decoration: none;
+  }
+  &:after{
+    font-family: "FontAwesome";
+    content: "\f105";
+    position: absolute;
+    font-size: 22px;
+    right: 24px;
+    top: 50%;
+    margin-top: -16px;
+  }
+}
+
 .btn_white{
   background: rgba(0, 0, 0, 0.3);
   border: 2px solid $white;
@@ -508,12 +539,20 @@ section{
 #locationMap{
   width: 100%;
   height: calc(100vh - 80px);
+  @include media-breakpoint-down(sm){
+    height: 400px;
+  }
 }
 
 #location-spots-info-area{
   overflow: auto;
   height: calc(100vh - 80px);
+  @include media-breakpoint-down(sm){
+    height: inherit;
+  }
   .location-spot-list{
+    border-top: 1px solid #dfdfdf;
+    padding-top: 16px;
     li{
       list-style: none;
       padding-bottom: 16px;
@@ -521,6 +560,7 @@ section{
       border-bottom: 1px solid #dfdfdf;
       a{
         position: relative;
+        color: #222215;
         .thumb{
           width: 100px;
           border-radius: 10px;
@@ -531,6 +571,15 @@ section{
           height: auto;
           top: -6px;
           left: -6px;
+        }
+        .cat-name{
+          background: $sub-color;
+          color: #fff;
+          font-size: 12px;
+          font-weight: bold;
+          padding: 4px 6px;
+          text-align: center;
+          border-radius: 10px;
         }
         &:hover{
           text-decoration: none;
