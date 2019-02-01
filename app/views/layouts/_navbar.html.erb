@@ -20,6 +20,9 @@
           <%= link_to(content_tag(:i, ' スポット登録', class: 'fa fa-map-marker'), new_spot_path, class: 'nav-link') %>
         </li>
         <li class="nav-item">
+          <%= link_to(content_tag(:i, ' スポット一覧', class: 'fa fa-map-marker'), spots_path, class: 'nav-link') %>
+        </li>
+        <li class="nav-item">
           <%= link_to(content_tag(:i, ' カテゴリ登録', class: 'fa fa-check'), new_category_path, class: 'nav-link') %>
         </li>
         <li class="nav-item">
@@ -56,6 +59,7 @@
             <%= link_to(content_tag(:i, '', class: 'fa fa-cog mr-1') + 'プロフィール編集', edit_user_path(current_user), class: 'dropdown-item') %>
             <%= link_to(content_tag(:i, '', class: 'fa fa-sign-out mr-1') + 'ログアウト', logout_path, method: :delete, class: 'dropdown-item') %>
             <% if admin_logged_in? %>
+              <%= link_to(content_tag(:i, '', class: 'fa fa-map-marker mr-1') + 'スポット一覧', spots_path, class: 'dropdown-item') %>
               <%= link_to(content_tag(:i, '', class: 'fa fa-group mr-1') + 'ユーザー一覧', users_path, class: 'dropdown-item') %>
               <%= link_to(content_tag(:i, '', class: 'fa fa-check mr-1') + 'カテゴリ登録', new_category_path, class: 'dropdown-item') %>
               <%= link_to(content_tag(:i, '', class: 'fa fa-list-ul mr-1') + 'カテゴリ一覧', categories_path, class: 'dropdown-item') %>

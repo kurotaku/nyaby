@@ -63,7 +63,7 @@ class SpotsController < ApplicationController
   end
   
   def location
-    @spots = Spot.all
+    @spots = Spot.order('created_at DESC')
     
     if params[:lat].present?
       lat = params[:lat]
@@ -71,7 +71,7 @@ class SpotsController < ApplicationController
       latlag = [lat, lng]
       @spots = @spots.near(latlag, 2, units: :km)
     else
-      @spots = Spot.all
+      @spots = Spot.order('created_at DESC')
     end
     
     if params[:distance].present?

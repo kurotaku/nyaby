@@ -110,9 +110,9 @@ function initMap() {
       <%= hidden_field '', :lat, { class: 'form-control', id: 'latfield', name: 'lat', readonly: true} %>
       <%= hidden_field '', :lng, { class: 'form-control', id: 'lngfield', name: 'lng', readonly: true} %>
       <%= collection_select('', :category_id, Category.all, :id, :name, {selected: params[:category_id], include_blank: '全カテゴリー'}, { class: 'form-control mb-3', id: 'category-field' } ) %>
-      <%= label :distance, '距離' %>
+      <%= label :distance, '現在地から' %>
       <%= select '', :distance, ['2', '5', '10', '20', '40', '100', '200', '400'], {selected: params[:distance]}, { class: 'form-control col-4 d-inline' } %>
-      km以内
+      km圏内のスポットを
       <%= submit_tag('検索', class: 'button_s btn_border mt-3 mr-auto ml-auto hover') %>
     <% end %>
   

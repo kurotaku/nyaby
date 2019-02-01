@@ -58,6 +58,7 @@ Category.create(name: '旅館', slug: 'park ', category_type: 'stay')
 Category.create(name: 'アミューズメント', slug: 'amusement ', category_type: 'other')
 Category.create(name: '公園', slug: 'park ', category_type: 'other')
 Category.create(name: 'ドライブ', slug: 'park ', category_type: 'other')
+Category.create(name: 'レジャー', slug: 'leisure ', category_type: 'other')
 
 Category.create(name: 'スポーツ', slug: 'sport ', category_type: 'sport')
 
